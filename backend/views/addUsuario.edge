@@ -1,0 +1,43 @@
+@layout('operations.add')
+@section('contentADD')
+
+<h3>Inserte los datos del usuario</h3>
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/addUsusario/save" method="POST">
+                <div class="form-group">
+                    <label for="">User ID</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre">
+                </div>
+
+                <div class="form-group">
+                <label for="">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el apellido">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la direccion">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono">
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

@@ -1,19 +1,29 @@
 const path = require('path')
 const express = require('express')
-const { config, engine} = require('express-edge')
+const bodyParser = require('body-parser')
 
 const app = new express()
+const { config, engine} = require('express-edge')
+
+const MongoClient = require('mongodb').MongoClient;
+const mongo = require('mongodb')
+const url = "mongodb+srv://equipo3:admin@cluster-1xa1r.gcp.mongodb.net/test?retryWrites=true&w=majority"
+
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
 app.set('views', `${__dirname}/views`);
 
+//Body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}))
+
 app.use(express.static(path.join(__dirname, "public")))
 
 //  HOME
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/index.html'))
-    res.render('index')
+    res.render('home')
 })
 
 //  Datos del usuario
@@ -31,6 +41,29 @@ app.get('/addUsuario', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
     res.render('addUsuario')
 })
+
+app.post("/addUsusario/save", (req, res) => {
+    var item = {
+        uID: req.body.id,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("rappi");
+        dbo.collection("usuario").insertOne(item, function (err, result) {
+            if (err) throw err;
+            console.log('Usuario insertado');
+            db.close();
+        });
+    });
+
+    res.redirect('/usuario');
+});
+
 //  fin datos del usuario
 
 //  Datos del pedido
@@ -58,7 +91,7 @@ app.get('/repartidor', (req, res) => {
 
 app.get('/editarRepartidor', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/repartidorE.html'))
-    res.render('editarTienda')
+    res.render('editarRepartidor')
 })
 
 app.get('/addRepartidor', (req, res) => {
