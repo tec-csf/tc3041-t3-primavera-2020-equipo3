@@ -1,0 +1,54 @@
+@layout('operations.editar')
+@section('contentEDIT')
+
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/editarPedido/save" method="POST">
+                
+                <div class="form-group">
+                    <label for="">Pedido ID</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID" name="uID" value="{{pedido.pID}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Hora</label>
+                    <input type="text" class="form-control" placeholder="Ingresa en formato de 24 horas (solamente la hora)" name="Hora" value="{{pedido.Hora}}"required>
+                </div>
+
+                <div class="form-group">
+                <label for="">Monto</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el monto" name="Monto" value="{{pedido.Monto}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Producto</label>
+                    <input type="text" class="form-control" placeholder="alitas, sushi, hamburguesa, pizza o pasta" name="producto" value="{{pedido.producto}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID del repartidor</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id del repartidor a cargo" name="rID" value="{{pedido.rID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID de la tienda</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id de la tienda" name="tID" value="{{pedido.tID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID del usuario</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id del usuario" name="uID" value="{{pedido.uID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary">Realizar cambios</button>
+                    <a href="/usuario/1">Regresar a usuarios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

@@ -34,12 +34,12 @@
                 <td>{{repartidor.telefono}}</td>
                 <td>{{repartidor.placa}}</td>
                 <td>
-                    <button class="btn btn-success text-right">
+                   <a href="/editarRepartidor/{{repartidor.rID}}" class="btn btn-success text-right">
                     Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
+                    </a>
+                    <a href="/borrarRepartidor/{{repartidor.rID}}" class="btn btn-danger text-right">
                     Borrar
-                    </button>
+                    </a>
                 </td>
             </tr>
             @endeach

@@ -32,151 +32,47 @@ app.get('/home', async (req, res) => {
 // Fin HOME 
 
 //  Datos del usuario
-app.get('/usuario/:page', async (req, res) => {
-
-    var usuarioDat = 20;                 //cantidad de usuarios que va a desplegar
-    var page = req.params.page;         //pagina reciente
-
-    mongo.connect(url, async function (err, db) {
-        if (err) throw err;
-        
-        var dB = db.db("rappi");
-        var usuarios = await dB.collection('usuario').find({}).sort({_id: 1}).toArray();
-
-        //console.log(usuarios);
-        res.render('usuario', {
-            usuarios: usuarios
-        })
-    })
-
-})
-
-app.get('/borrarUsuario/:uID', async (req, res) => {
-
-    const idUser = req.params.uID;
+app.get('/pedido/:page', async (req, res) => {
+    var pedidoDat = 20; //cantidad de datos que va a desplegar
+    var page = req.params.page; //pagina reciente
 
     mongo.connect(url, async function (err, db) {
         if (err) throw err;
 
         var dB = db.db("rappi");
+        var pedidos = await dB.collection('pedido').find({}).sort({
+            _id: 1
+        }).toArray();
 
-        var search = { uID: idUser };
+        console.log(pedidos);
 
-        dB.collection("usuario").find(search).toArray(function (err, usuario) {
-            if (err) throw err;
-            console.log(usuario[0]);
-            var usuario = usuario[0];
-
-            res.render('borrarUsuario', {
-                usuario
-            })
+        res.render('pedido', {
+            pedidos: pedidos
         })
     })
 })
 
-app.post("/borrarUsuario/delete", (req, res) => {
-    var idUser = req.body.uID;
-    console.log(idUser);
-
-    var usuarioComponents = {
-        uID: req.body.uID,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono
-    };
-
-    mongo.connect(url, function (err, db) {
-        if (err) throw err;
-        const dB = db.db("rappi");
-        const busID = { uID: idUser };
-
-        console.log(busID);
-
-        dB.collection("usuario").remove(busID, usuarioComponents, function (err, res) {
-            if (err) throw err;
-            console.log('Usuario eliminado correctamente');
-
-        });
-
-    });
-
-    res.redirect('/home');
+app.get('/addPedido', (req, res) => {
+    res.render('addPedido');
 })
 
-app.get('/editarUsuario/:uID', async (req, res) => {
-    
-    const idUser = req.params.uID;
-
-    mongo.connect(url, async function(err, db){
-        if(err) throw err;
-        
-        var dB = db.db("rappi");
-        
-        var search = {uID: idUser};
-
-        dB.collection("usuario").find(search).toArray(function(err, usuario) {
-            if (err) throw err;
-            console.log(usuario[0]);
-            var usuario = usuario[0];
-            
-            res.render('editarUsuario', {
-                usuario
-            })
-        })
-    })
-})
-
-app.post("/editarUsuario/save", (req, res) =>{
-    var idUser = req.body.uID;
-    console.log(idUser);
-    
-    var usuarioComponents ={
-        uID: req.body.uID,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono
-    };
-    
-    mongo.connect(url, function (err, db) {
-        if (err) throw err;
-        const dB = db.db("rappi");
-        const bus = {uID: idUser};
-
-        console.log(bus);
-
-        dB.collection("usuario").update(bus, usuarioComponents, function (err, res) {
-            if (err) throw err;
-            console.log('Usuario editado correctamente');
-            
-        });
-
-    });
-    
-    res.redirect('/home');
-})
-
-app.get('/addUsuario', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
-    res.render('addUsuario')
-})
-
-app.post("/addUsusario/save", (req, res) => {
+app.post("/addPedido/save", (req, res) => {
     var item = {
-        uID: req.body.uID,
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        direccion: req.body.direccion,
-        telefono: req.body.telefono
+        pID: req.body.pID,
+        Hora: req.body.Hora,
+        Monto: req.body.Monto,
+        producto: req.body.producto,
+        rID: req.body.rID,
+        tID: req.body.tID,
+        uID: req.body.uID
     };
 
     mongo.connect(url, function (err, db) {
         if (err) throw err;
         var dB = db.db("rappi");
-        dB.collection("usuario").insertOne(item, function (err, result) {
+        dB.collection("pedido").insertOne(item, function (err, result) {
             if (err) throw err;
-            console.log('Usuario insertado');
+            console.log('Pedido insertado');
             db.close();
         });
     });
@@ -184,6 +80,123 @@ app.post("/addUsusario/save", (req, res) => {
     res.redirect('/home');
 });
 
+app.get('/editarPedido/:pID', async (req, res) => {
+
+    const idPed = req.params.pID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var search = {
+            pID: idPed
+        };
+
+        dB.collection("pedido").find(search).toArray(function (err, pedido) {
+            if (err) throw err;
+            console.log(pedido[0]);
+            var pedido = pedido[0];
+
+            res.render('editarPedido', {
+                pedido
+            })
+        })
+    })
+})
+
+app.post("/editarPedido/save", (req, res) => {
+    var idPed = req.body.pID;
+    console.log(idPed);
+
+    var pedidoComponentes = {
+        pID: req.body.pID,
+        Hora: req.body.Hora,
+        Monto: req.body.Monto,
+        producto: req.body.producto,
+        rID: req.body.rID,
+        tID: req.body.tID,
+        uID: req.body.uID
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const bus = {
+            pID: idPed
+        };
+
+        console.log(bus);
+
+        dB.collection("pedido").update(bus, pedidoComponentes, function (err, res) {
+            if (err) throw err;
+            console.log('Pedido editado correctamente');
+
+        });
+
+    });
+
+    res.redirect('/home');
+})
+
+app.get('/borrarPedido/:uID', async (req, res) => {
+
+    const idPed = req.params.pID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var search = {
+            pID: idPed
+        };
+
+        dB.collection("pedido").find(search).toArray(function (err, pedido) {
+            if (err) throw err;
+            console.log(pedido[0]);
+            var pedido = pedido[0];
+
+            res.render('borrarPedido', {
+                pedido
+            })
+        })
+    })
+})
+
+app.post("/borrarPedido/delete", (req, res) => {
+    var idPed = req.body.pID;
+    console.log(idPed);
+
+    var pedidoComponentes = {
+        pID: req.body.pID,
+        Hora: req.body.Hora,
+        Monto: req.body.Monto,
+        producto: req.body.producto,
+        rID: req.body.rID,
+        tID: req.body.tID,
+        uID: req.body.uID
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const busID = {
+            pID: idPed
+        };
+
+        console.log(busID);
+
+        dB.collection("pedido").remove(busID, pedidoComponentes, function (err, res) {
+            if (err) throw err;
+            console.log('Pedido eliminado correctamente');
+
+        });
+
+    });
+
+    res.redirect('/home');
+})
 //  fin datos del usuario
 
 //  Datos del pedido
@@ -241,14 +254,16 @@ app.get('/editarPedido', (req, res) => {
 
 //  Datos del repartidor
 app.get('/repartidor/:page', (req, res) => {
-    var pedidoDat = 20;                 //cantidad de datos que va a desplegar
-    var page = req.params.page;         //pagina reciente
+    var pedidoDat = 20; //cantidad de datos que va a desplegar
+    var page = req.params.page; //pagina reciente
 
     mongo.connect(url, async function (err, db) {
         if (err) throw err;
 
         var dB = db.db("rappi");
-        var repartidores = await dB.collection('repartidor').find({}).sort({ _id: 1 }).toArray();
+        var repartidores = await dB.collection('repartidor').find({}).sort({
+            _id: 1
+        }).toArray();
 
         console.log(repartidores);
 
@@ -258,9 +273,115 @@ app.get('/repartidor/:page', (req, res) => {
     })
 })
 
-app.get('/editarRepartidor', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/repartidorE.html'))
-    res.render('editarRepartidor')
+app.get('/borrarRepartidor/:tID', async (req, res) => {
+
+    const idRepartidor = req.params.rID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var search = {
+            rID: idRepartidor
+        };
+
+        dB.collection("repartidor").find(search).toArray(function (err, repartidor) {
+            if (err) throw err;
+            console.log(repartidor[0]);
+            var repartidor = repartidor[0];
+
+            res.render('borrarRepartidor', {
+                repartidor
+            })
+        })
+    })
+})
+
+app.post("/borrarRepartidor/delete", (req, res) => {
+    var idRepartidor = req.body.rID;
+    console.log(idRepartidor);
+
+    var tiendaComponents = {
+        tID: req.body.tID,
+        direccion: req.body.direccion,
+        lat: req.body.lat,
+        long: req.body.long,
+        nombre: req.body.nombre,
+        gerente: req.body.gerente,
+        categoria: req.body.categoria,
+        ganancias: req.body.ganancias
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+
+        const busID = {
+            rID: idRepartidor
+        };
+
+        console.log(busID);
+
+        dB.collection("repartidor").remove(busID, repartidorComponentes, function (err, res) {
+            if (err) throw err;
+            console.log('Repartidor eliminado correctamente');
+
+        });
+
+    });
+
+    res.redirect('/home');
+})
+
+app.get('/editarRepartidor/:rID', (req, res) => {
+    const idRepartidor = req.params.rID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+        var search = {
+            rID: idRepartidor
+        };
+
+        dB.collection("repartidor").find(search).toArray(function (err, repartidor) {
+            if (err) throw err;
+            console.log(repartidor[0]);
+            var repartidor = repartidor[0];
+
+            res.render('editarRepartidor', {
+                repartidor
+            })
+        })
+    })
+})
+
+app.post('/editarRepartidor/save', (req, res) => {
+    var idRepartidor = req.body.rID;
+    console.log(idRepartidor);
+
+    var repartidorComponentes = {
+        rID: req.body.rID,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        telefono: req.body.telefono,
+        placa: req.body.placa
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const bus = {
+            rID: idRepartidor
+        };
+
+        console.log(bus);
+        db.collection("repartidor").update(bus, repartidorComponentes, function (err, res) {
+            if (err) throw err;
+            console.log("Repartidor actualizado correctamente");
+        })
+    })
 })
 
 app.get('/addRepartidor', (req, res) => {
@@ -287,20 +408,22 @@ app.post("/addRepartidor/save", (req, res) => {
         });
     });
 
-    res.redirect('/repartidor');
+    res.redirect('/home');
 })
 //  fin datos del repartidor
 
 //  Datos de la tienda
 app.get('/tienda/:page', async (req, res) => {
-    var tiendaDat = 20;                 //cantidad de usuarios que va a desplegar
-    var page = req.params.page;         //pagina reciente
+    var tiendaDat = 20; //cantidad de usuarios que va a desplegar
+    var page = req.params.page; //pagina reciente
 
     mongo.connect(url, async function (err, db) {
         if (err) throw err;
 
         var dB = db.db("rappi");
-        var tiendas = await dB.collection('tienda').find({}).sort({ _id: 1 }).toArray();
+        var tiendas = await dB.collection('tienda').find({}).sort({
+            _id: 1
+        }).toArray();
 
         console.log(tiendas);
         res.render('tienda', {
@@ -309,9 +432,118 @@ app.get('/tienda/:page', async (req, res) => {
     })
 })
 
-app.get('/editarTienda', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/tiendaE.html'))
-    res.render('editarTienda')
+app.get('/borrarTienda/:tID', async (req, res) => {
+
+    const idTienda = req.params.tID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var search = {
+            tID: idTienda
+        };
+
+        dB.collection("tienda").find(search).toArray(function (err, tienda) {
+            if (err) throw err;
+            console.log(tienda[0]);
+            var tienda = tienda[0];
+
+            res.render('borrarTienda', {
+                tienda
+            })
+        })
+    })
+})
+
+app.post("/borrarTienda/delete", (req, res) => {
+    var idTienda = req.body.tID;
+    console.log(idTienda);
+
+    var usuarioComponents = {
+        tID: req.body.tID,
+        direccion: req.body.direccion,
+        lat: req.body.lat,
+        long: req.body.long,
+        nombre: req.body.nombre,
+        gerente: req.body.gerente,
+        categoria: req.body.categoria,
+        ganancias: req.body.ganancias
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+
+        const busID = {
+            tID: idTienda
+        };
+
+        console.log(busID);
+
+        dB.collection("tienda").remove(busID, tiendaComponents, function (err, res) {
+            if (err) throw err;
+            console.log('Tienda eliminada correctamente');
+
+        });
+
+    });
+
+    res.redirect('/home');
+})
+
+app.get('/editarTienda/:tID', (req, res) => {
+    const idTienda = req.params.tID;
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+        var search = {
+            tID: idTienda
+        };
+
+        dB.collection("tienda").find(search).toArray(function (err, tienda) {
+            if (err) throw err;
+            console.log(tienda[0]);
+            var tienda = tienda[0];
+
+            res.render('editarTienda', {
+                tienda
+            })
+        })
+    })
+})
+
+app.post('/editarTienda/save', (req, res) => {
+    var idTienda = req.body.tID;
+    console.log(idTienda);
+
+    var tiendaComponents = {
+        tID: req.body.tID,
+        direccion: req.body.direccion,
+        lat: req.body.lat,
+        long: req.body.long,
+        nombre: req.body.nombre,
+        gerente: req.body.gerente,
+        categoria: req.body.categoria,
+        ganancias: req.body.ganancias
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const bus = {
+            tID: idTienda
+        };
+
+        console.log(bus);
+        db.collection("tienda").update(bus, usuarioComponents, function (err, res) {
+            if (err) throw err;
+            console.log("Tienda editada correctamente");
+        })
+    })
 })
 
 app.get('/addTienda', (req, res) => {
@@ -341,7 +573,7 @@ app.post("/addTienda/save", (req, res) => {
         });
     });
 
-    res.redirect('/tienda');
+    res.redirect('/home');
 })
 
 //  fin dato de la tienda

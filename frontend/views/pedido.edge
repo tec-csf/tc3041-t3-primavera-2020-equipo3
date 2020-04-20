@@ -38,12 +38,12 @@
                 <td>{{pedido.tID}}</td>
                 <td>{{pedido.uID}}</td>
                 <td>
-                    <button class="btn btn-success text-right">
+                   <a href="/editarPedido/{{pedido.pID}}" class="btn btn-success text-right">
                     Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
+                    </a>
+                    <a href="/borrarPedido/{{pedido.pID}}" class="btn btn-danger text-right">
                     Borrar
-                    </button>
+                    </a>
                 </td>
             </tr>
             @endeach
