@@ -33,12 +33,12 @@
                 <td>{{usuario.direccion}}</td>
                 <td>{{usuario.telefono}}</td>
                 <td>
-                    <button class="btn btn-success text-right">
+                    <a href="/editarUsuario/{{usuario.uID}}" class="btn btn-success text-right">
                     Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
+                    </a>
+                    <a href="/borrarUsuario/{{usuario.uID}}" class="btn btn-danger text-right">
                     Borrar
-                    </button>
+                    </a>
                 </td>
             </tr>
             @endeach

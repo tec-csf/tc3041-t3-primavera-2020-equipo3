@@ -43,7 +43,7 @@ app.get('/usuario/:page', async (req, res) => {
         var dB = db.db("rappi");
         var usuarios = await dB.collection('usuario').find({}).sort({_id: 1}).toArray();
 
-        console.log(usuarios);
+        //console.log(usuarios);
         res.render('usuario', {
             usuarios: usuarios
         })
@@ -51,27 +51,110 @@ app.get('/usuario/:page', async (req, res) => {
 
 })
 
-app.get('/editarUsuario/:uID', async (req, res) => {
-    
+app.get('/borrarUsuario/:uID', async (req, res) => {
+
     const idUser = req.params.uID;
-    console.log(idUser)
-    
-    mongo.connect(url, function(err, db){
-        if(err) throw err;
-        var query = {uID: idUser};
-        
-        var dbo = db.db("rappi");
-        dbo.collection("usuario").find(query).toArray(function(err, usuario) {
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var search = { uID: idUser };
+
+        dB.collection("usuario").find(search).toArray(function (err, usuario) {
             if (err) throw err;
             console.log(usuario[0]);
             var usuario = usuario[0];
-            dbo.close();
-            
-            res.render('/editarUsuario', {
+
+            res.render('borrarUsuario', {
                 usuario
             })
         })
     })
+})
+
+app.post("/borrarUsuario/delete", (req, res) => {
+    var idUser = req.body.uID;
+    console.log(idUser);
+
+    var usuarioComponents = {
+        uID: req.body.uID,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const busID = { uID: idUser };
+
+        console.log(busID);
+
+        dB.collection("usuario").remove(busID, usuarioComponents, function (err, res) {
+            if (err) throw err;
+            console.log('Usuario eliminado correctamente');
+
+        });
+
+    });
+
+    res.redirect('/home');
+})
+
+app.get('/editarUsuario/:uID', async (req, res) => {
+    
+    const idUser = req.params.uID;
+
+    mongo.connect(url, async function(err, db){
+        if(err) throw err;
+        
+        var dB = db.db("rappi");
+        
+        var search = {uID: idUser};
+
+        dB.collection("usuario").find(search).toArray(function(err, usuario) {
+            if (err) throw err;
+            console.log(usuario[0]);
+            var usuario = usuario[0];
+            
+            res.render('editarUsuario', {
+                usuario
+            })
+        })
+    })
+})
+
+app.post("/editarUsuario/save", (req, res) =>{
+    var idUser = req.body.uID;
+    console.log(idUser);
+    
+    var usuarioComponents ={
+        uID: req.body.uID,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono
+    };
+    
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        const dB = db.db("rappi");
+        const bus = {uID: idUser};
+
+        console.log(bus);
+
+        dB.collection("usuario").update(bus, usuarioComponents, function (err, res) {
+            if (err) throw err;
+            console.log('Usuario editado correctamente');
+            
+        });
+
+    });
+    
+    res.redirect('/home');
 })
 
 app.get('/addUsuario', (req, res) => {
@@ -90,15 +173,15 @@ app.post("/addUsusario/save", (req, res) => {
 
     mongo.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("rappi");
-        dbo.collection("usuario").insertOne(item, function (err, result) {
+        var dB = db.db("rappi");
+        dB.collection("usuario").insertOne(item, function (err, result) {
             if (err) throw err;
             console.log('Usuario insertado');
             db.close();
         });
     });
 
-    res.redirect('/usuario');
+    res.redirect('/home');
 });
 
 //  fin datos del usuario
@@ -139,8 +222,8 @@ app.post("/addPedido/save", (req, res) => {
 
     mongo.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("rappi");
-        dbo.collection("pedido").insertOne(item, function (err, result) {
+        var dB = db.db("rappi");
+        dB.collection("pedido").insertOne(item, function (err, result) {
             if (err) throw err;
             console.log('Pedido insertado');
             db.close();
@@ -196,8 +279,8 @@ app.post("/addRepartidor/save", (req, res) => {
 
     mongo.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("rappi");
-        dbo.collection("repartidor").insertOne(item, function (err, result) {
+        var dB = db.db("rappi");
+        dB.collection("repartidor").insertOne(item, function (err, result) {
             if (err) throw err;
             console.log('Repartidor insertado');
             db.close();
@@ -250,8 +333,8 @@ app.post("/addTienda/save", (req, res) => {
 
     mongo.connect(url, function (err, db) {
         if (err) throw err;
-        var dbo = db.db("rappi");
-        dbo.collection("tienda").insertOne(item, function (err, result) {
+        var dB = db.db("rappi");
+        dB.collection("tienda").insertOne(item, function (err, result) {
             if (err) throw err;
             console.log('Tienda insertado');
             db.close();

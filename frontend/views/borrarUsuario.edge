@@ -1,12 +1,17 @@
-@layout('operations.editar')
-@section('contentEDIT')
+@layout('operations.borrar')
+@section('contentDEL')
 
 
 <div class="container">
     <div class="row mt-2">
         <div class="col-6 offset-3">
-            <form action="/editarUsuario/save" method="POST">
+            <form action="/borrarUsuario/delete" method="POST">
                 
+                <div class="form-group">
+                    <label>MongoDB ID</label>
+                    <input type="text" class="form-control" placeholder="El ID de MongoDB es" name="_id" value="{{usuario._id}}" required readonly>
+                </div>
+
                 <div class="form-group">
                     <label for="">User ID</label>
                     <input type="text" class="form-control" placeholder="Ingresa el ID" name="uID" value="{{usuario.uID}}"required readonly>
@@ -33,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-primary">Realizar cambios</button>
+                    <button class="btn btn-primary">Borrar usuario</button>
                     <a href="/usuario/1">Regresar a usuarios</a>
                 </div>
             </form>
