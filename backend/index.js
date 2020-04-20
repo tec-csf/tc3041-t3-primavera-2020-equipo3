@@ -12,7 +12,7 @@ const url = "mongodb+srv://equipo3:admin@cluster-1xa1r.gcp.mongodb.net/test?retr
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
-app.set('views', `${__dirname}/views`);
+app.set('views', `../frontend/views`);
 
 //Body parser
 app.use(bodyParser.json());
@@ -21,20 +21,57 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname, "public")))
 
 //  HOME
-app.get('/home', (req, res) => {
+app.get('/', async (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/index.html'))
     res.render('home')
 })
 
+app.get('/home', async (req, res) => {
+    res.render('home')
+})
+// Fin HOME 
+
 //  Datos del usuario
-app.get('/usuario', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/Usuarios.html'))
-    res.render('usuario')
+app.get('/usuario/:page', async (req, res) => {
+
+    var usuarioDat = 20;                 //cantidad de usuarios que va a desplegar
+    var page = req.params.page;         //pagina reciente
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+        
+        var dB = db.db("rappi");
+        var usuarios = await dB.collection('usuario').find({}).sort({_id: 1}).toArray();
+
+        console.log(usuarios);
+        res.render('usuario', {
+            usuarios: usuarios
+        })
+    })
+
 })
 
-app.get('/editarUsuario', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
-    res.render('editarUsuario')
+app.get('/editarUsuario/:uID', async (req, res) => {
+    
+    const idUser = req.params.uID;
+    console.log(idUser)
+    
+    mongo.connect(url, function(err, db){
+        if(err) throw err;
+        var query = {uID: idUser};
+        
+        var dbo = db.db("rappi");
+        dbo.collection("usuario").find(query).toArray(function(err, usuario) {
+            if (err) throw err;
+            console.log(usuario[0]);
+            var usuario = usuario[0];
+            dbo.close();
+            
+            res.render('/editarUsuario', {
+                usuario
+            })
+        })
+    })
 })
 
 app.get('/addUsuario', (req, res) => {
@@ -44,7 +81,7 @@ app.get('/addUsuario', (req, res) => {
 
 app.post("/addUsusario/save", (req, res) => {
     var item = {
-        uID: req.body.id,
+        uID: req.body.uID,
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         direccion: req.body.direccion,
@@ -98,6 +135,28 @@ app.get('/addRepartidor', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
     res.render('addRepartidor')
 })
+
+app.post("/addRepartidor/save", (req, res) => {
+    var item = {
+        rID: req.body.rID,
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        telefono: req.body.telefono,
+        placa: req.body.placa
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("rappi");
+        dbo.collection("repartidor").insertOne(item, function (err, result) {
+            if (err) throw err;
+            console.log('Repartidor insertado');
+            db.close();
+        });
+    });
+
+    res.redirect('/repartidor');
+})
 //  fin datos del repartidor
 
 //  Datos de la tienda
@@ -115,6 +174,32 @@ app.get('/addTienda', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
     res.render('addTienda')
 })
+
+app.post("/addTienda/save", (req, res) => {
+    var item = {
+        tID: req.body.tID,
+        direccion: req.body.direccion,
+        lat: req.body.lat,
+        long: req.body.long,
+        nombre: req.body.nombre,
+        gerente: req.body.gerente,
+        categoria: req.body.categoria,
+        ganancias: req.body.ganancias
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("rappi");
+        dbo.collection("tienda").insertOne(item, function (err, result) {
+            if (err) throw err;
+            console.log('Tienda insertado');
+            db.close();
+        });
+    });
+
+    res.redirect('/tienda');
+})
+
 //  fin dato de la tienda
 
 app.listen(4000, () => {

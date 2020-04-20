@@ -1,0 +1,44 @@
+@layout('operations.add')
+@section('contentADD')
+
+<h3>Inserte los datos del usuario</h3>
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/editarUsuario/save" method="POST">
+                <div class="form-group">
+                    <label for="">User ID</label>
+                <input type="text" class="form-control" placeholder="Ingresa el ID" name="uID" value="{{usuario.uID}}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="nombre" value="{{usuario.nombre}}">
+                </div>
+
+                <div class="form-group">
+                <label for="">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el apellido" name="apellido" value="{{usuario.apellido}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la direccion" name="direccion" value="{{usuario.direccion}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="telefono" value="{{usuario.telefono}}">
+                </div>
+
+                <input class="form-group">
+                    <button class="btn btn-primary">Editar usuario</button>
+                    <a href="/usuario">Volver a los usuarios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

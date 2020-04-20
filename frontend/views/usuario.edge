@@ -1,0 +1,52 @@
+@layout('layouts.info')
+@section('contentINFO')
+
+<h1>Usuarios</h1>
+    <div class="container">
+        <div class="row m-5">
+             <div class="col-3 offset-9">
+                <a href="addUsuario" class="btn btn-primary">
+                    Ingresar usuario
+                </a>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Teléfono</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(usuario in usuarios)
+            <tr>
+                <td>{{usuario.uID}}</td>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.apellido}}</td>
+                <td>{{usuario.direccion}}</td>
+                <td>{{usuario.telefono}}</td>
+                <td>
+                    <button class="btn btn-success text-right">
+                    Editar
+                    </button>
+                    <button class="btn btn-danger text-right">
+                    Borrar
+                    </button>
+                </td>
+            </tr>
+            @endeach
+        </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+
+@endsection
