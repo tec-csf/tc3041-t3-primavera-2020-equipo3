@@ -17,21 +17,28 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">User id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
+                <th scope="col">ID tienda</th>
                 <th scope="col">Dirección</th>
-                <th scope="col">Teléfono</th>
+                <th scope="col">Latitud</th>
+                <th scope="col">Longitud</th>
+                <th scope="col">Nombre de la tienda</th>
+                <th scope="col">Gerente</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Ganancias</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
+            @each(tienda in tiendas)
             <tr>
-                <th scope="row">U1</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
+                <td>{{tienda.tID}}</td>
+                <td>{{tienda.direccion}}</td>
+                <td>{{tienda.lat}}</td>
+                <td>{{tienda.long}}</td>
+                <td>{{tienda.nombre}}</td>
+                <td>{{tienda.gerente}}</td>
+                <td>{{tienda.categoria}}</td>
+                <td>{{tienda.ganancias}}</td>
                 <td>
                     <button class="btn btn-success text-right">
                     Editar
@@ -41,36 +48,7 @@
                     </button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">U2</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">U3</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
+            @endeach
         </tbody>
         </table>
         </div>

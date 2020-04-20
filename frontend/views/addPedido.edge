@@ -1,38 +1,50 @@
 @layout('operations.add')
 @section('contentADD')
 
+<h3>Inserte los datos del usuario</h3>
+
 <div class="container">
     <div class="row mt-2">
         <div class="col-6 offset-3">
-            <form>
+            <form action="/addPedido/save" method="POST">
                 <div class="form-group">
-                    <label for="">Nombre</label>
-                    <input type="text" class="form-control" placeholder="Ingresa nombre">
+                    <label for="">ID del pedido</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID" name="pID" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Apellidos</label>
-                    <input type="text" class="form-control" placeholder="Ingresa apellidos">
+                    <label for="">Hora</label>
+                    <input type="text" class="form-control" placeholder="Ingresa en formato de 24 horas (solamente la hora)" name="Hora" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Fecha Nacimiento</label>
-                    <input type="text" class="form-control" placeholder="Ingresa fecha de nacimiento">
+                <label for="">Monto</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el monto" name="monto" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Dirección </label>
-                    <input type="text" class="form-control" placeholder="Ingresa direccion">
+                    <label for="">Producto</label>
+                    <input type="text" class="form-control" placeholder="alitas, sushi, hamburguesa, pizza o pasta" name="producto" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Semestre</label>
-                    <input type="number" class="form-control" placeholder="Ingresa semestre">
+                    <label for="">Teléfono</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="telefono" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="">Promedio</label>
-                    <input type="number" class="form-control" placeholder="Ingresa promedio">
+                    <label for="">ID del repartidor</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id del repartidor a cargo" name="rID" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID de la tienda</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id de la tienda" name="tID" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID del usuario</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el id del usuario" name="uID" required>
                 </div>
 
                 <div class="form-group">

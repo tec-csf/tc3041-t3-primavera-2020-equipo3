@@ -17,21 +17,22 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">User id</th>
+                <th scope="col">ID repartidor</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
-                <th scope="col">Dirección</th>
                 <th scope="col">Teléfono</th>
+                <th scope="col">Placa</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
+            @each(repartidor in repartidores)
             <tr>
-                <th scope="row">U1</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
+                <td>{{repartidor.rID}}</td>
+                <td>{{repartidor.nombre}}</td>
+                <td>{{repartidor.apellido}}</td>
+                <td>{{repartidor.telefono}}</td>
+                <td>{{repartidor.placa}}</td>
                 <td>
                     <button class="btn btn-success text-right">
                     Editar
@@ -41,36 +42,7 @@
                     </button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">U2</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">U3</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
+            @endeach
         </tbody>
         </table>
         </div>

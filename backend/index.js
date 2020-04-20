@@ -104,15 +104,51 @@ app.post("/addUsusario/save", (req, res) => {
 //  fin datos del usuario
 
 //  Datos del pedido
-app.get('/pedido', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/Pedidos.html'))
-    res.render('pedido')
+app.get('/pedido/:page', async (req, res) => {
+    var pedidoDat = 20;                 //cantidad de datos que va a desplegar
+    var page = req.params.page;         //pagina reciente
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+        var pedidos = await dB.collection('pedido').find({}).sort({ _id: 1 }).toArray();
+
+        console.log(pedidos);
+
+        res.render('pedido', {
+            pedidos: pedidos
+        })
+    })
 })
 
 app.get('/addPedido', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/usuarioE.html'))
-    res.render('addPedido')
+    res.render('addPedido');
 })
+
+app.post("/addPedido/save", (req, res) => {
+    var item = {
+        pID: req.body.pID,
+        Hora: req.body.Hora,
+        Monto: req.body.Monto,
+        producto: req.body.producto,
+        rID: req.body.rID,
+        tID: req.body.tID,
+        uID: req.body.uID
+    };
+
+    mongo.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("rappi");
+        dbo.collection("pedido").insertOne(item, function (err, result) {
+            if (err) throw err;
+            console.log('Pedido insertado');
+            db.close();
+        });
+    });
+
+    res.redirect('/pedido');
+});
 
 app.get('/editarPedido', (req, res) => {
     //res.sendFile(path.resolve(__dirname, 'sites/pedidoE.html'))
@@ -121,9 +157,22 @@ app.get('/editarPedido', (req, res) => {
 //  fin datos del pedido
 
 //  Datos del repartidor
-app.get('/repartidor', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/Repartidor.html'))
-    res.render('repartidor')
+app.get('/repartidor/:page', (req, res) => {
+    var pedidoDat = 20;                 //cantidad de datos que va a desplegar
+    var page = req.params.page;         //pagina reciente
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+        var repartidores = await dB.collection('repartidor').find({}).sort({ _id: 1 }).toArray();
+
+        console.log(repartidores);
+
+        res.render('repartidor', {
+            repartidores: repartidores
+        })
+    })
 })
 
 app.get('/editarRepartidor', (req, res) => {
@@ -160,9 +209,21 @@ app.post("/addRepartidor/save", (req, res) => {
 //  fin datos del repartidor
 
 //  Datos de la tienda
-app.get('/tienda', (req, res) => {
-    //res.sendFile(path.resolve(__dirname, 'sites/Tiendas.html'))
-    res.render('tienda')
+app.get('/tienda/:page', async (req, res) => {
+    var tiendaDat = 20;                 //cantidad de usuarios que va a desplegar
+    var page = req.params.page;         //pagina reciente
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+        var tiendas = await dB.collection('tienda').find({}).sort({ _id: 1 }).toArray();
+
+        console.log(tiendas);
+        res.render('tienda', {
+            tiendas: tiendas
+        })
+    })
 })
 
 app.get('/editarTienda', (req, res) => {

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row m-5">
             <div class="col-3 offset-9">
-                <a href="addPedido" class="btn btn-primary">
+                <a href="/addPedido" class="btn btn-primary">
                     Ingresar pedido
                 </a>
             </div>
@@ -17,21 +17,26 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">User id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Dirección</th>
-                <th scope="col">Teléfono</th>
+                <th scope="col">ID del pedido</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Producto</th>
+                <th scope="col">ID del repartidor</th>
+                <th scope="col">ID de la tienda</th>
+                <th scope="col">ID del usuario</th>
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+       <tbody>
+            @each(pedido in pedidos)
             <tr>
-                <th scope="row">U1</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
+                <td>{{pedido.pID}}</td>
+                <td>{{pedido.Hora}}</td>
+                <td>{{pedido.Monto}}</td>
+                <td>{{pedido.producto}}</td>
+                <td>{{pedido.rID}}</td>
+                <td>{{pedido.tID}}</td>
+                <td>{{pedido.uID}}</td>
                 <td>
                     <button class="btn btn-success text-right">
                     Editar
@@ -41,36 +46,7 @@
                     </button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">U2</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">U3</th>
-                <td>Gretchen</td>
-                <td>Giles</td>
-                <td>248-3266 Eget Street</td>
-                <td>55-3527-7154</td>
-                <td>
-                    <button class="btn btn-success text-right">
-                    Editar
-                    </button>
-                    <button class="btn btn-danger text-right">
-                    Borrar
-                    </button>
-                </td>
-            </tr>
+            @endeach
         </tbody>
         </table>
         </div>
