@@ -44,7 +44,7 @@ app.get('/pedido/:page', async (req, res) => {
             _id: 1
         }).toArray();
 
-        console.log(pedidos);
+        //console.log(pedidos);
 
         res.render('pedido', {
             pedidos: pedidos
@@ -675,6 +675,77 @@ app.post("/addTienda/save", (req, res) => {
 })
 
 //  fin dato de la tienda
+
+//Aggregation operations
+/*
+app.get('/lookup', (req, res) => {
+
+    mongo.connect(url, async function (err, db) {
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        var consL = {
+            $lookup: {
+                from: 'repartidor',
+                localField: 'rID',
+                foreignField: 'rID',
+                as: 'repartidor_a_cargo'
+            }
+        }
+
+        await dB.collection('pedido').aggregate(consL).toArray(function (err, lookUP){
+            if (err) throw err;
+
+            console.log(lookUP);
+
+            res.render('lookup', {
+                pedido: lookUP
+            })
+        });
+    })
+})
+
+app.get('/facet', (req, res) =>{
+    
+    var consF = {
+        $facet: {
+            "ProductosMasVendidos": [{
+                    "$unwind": "$producto"
+                },
+                {
+                    "$sortByCount": "$producto"
+                }
+            ]
+        }
+    }
+
+    //console.log(consF);
+
+    mongo.connect(url, async function(err, db){
+        if (err) throw err;
+
+        var dB = db.db("rappi");
+
+        mongo.connect(url, async function(err, db){
+            
+            if(err) throw err;
+            var dB = db.db("rappi");
+
+            await dB.collection('pedido').aggregate(consF).toArray(function(err, faceT){
+                console.log(faceT);
+
+                res.render('facet', {
+                    pedido: faceT
+                })
+
+            });
+
+        })
+    })
+
+})
+*/
 
 app.listen(4000, () => {
     console.log('App is running in port 4000')

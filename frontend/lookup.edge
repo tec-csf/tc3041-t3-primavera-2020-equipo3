@@ -1,0 +1,41 @@
+@layout('operations.aggregation')
+@section('contentAGG')
+
+<h1>Lookup</h1>
+
+<div class="container">
+        <div class="row m-5">
+            <div class="col-3 offset-9">
+                <a href="/pedido/1" class="btn btn-primary">
+                    Regresar a pedidos
+                </a>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-12">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID Pedido</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @each(lookUP in pedido)
+            <tr>
+                <td>{{lookUP.pID}}</td>
+                <td>{{lookUP.producto}}</td>
+                <td>{{lookUP.repartidor_a_cargo}}</td>
+                <td>
+                </td>
+            </tr>
+            @endeach
+        </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+@endsection
