@@ -1,0 +1,132 @@
+
+    {
+            "$schema": "Pedido",
+            "type": "object",
+            "properties": {
+                "pID": {
+                    "type": "string"
+                },
+                "Hora": {
+                    "type": "string"
+                },
+                "Monto": {
+                    "type": "string"
+                },
+                "producto": {
+                    "type": "string"
+                },
+                "rID": {
+                    "type": "string"
+                },
+                "tID": {
+                    "type": "string"
+                },
+                "uID": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "pID",
+                "Hora",
+                "Monto",
+                "producto",
+                "rID",
+                "tID",
+                "uID"
+            ]
+    }
+    {
+        "$schema": "Repartidor",
+        "type": "object",
+        "properties": {
+            "rID": {
+                "type": "string"
+            },
+            "nombre": {
+                "type": "string"
+            },
+            "apellido": {
+                "type": "string"
+            },
+            "telefono": {
+                "type": "string"
+            },
+            "placa": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "rID",
+            "nombre",
+            "apellido",
+            "telefono",
+            "placa"
+        ]
+    }
+    {
+        "$schema": "Tienda",
+        "type": "object",
+        "properties": {
+            "tID": {
+                "type": "string"
+            },
+            "direccion": {
+                "type": "string"
+            },
+            "lat": {
+                "type": "string"
+            },
+            "long": {
+                "type": "string"
+            },
+            "nombre": {
+                "type": "string"
+            },
+            "gerente": {
+                "type": "string"
+            },
+            "categoria": {
+                "type": "string"
+            },
+            "ganancias": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "tID",
+            "direccion",
+            "lat",
+            "long",
+            "nombre",
+            "gerente",
+            "categoria",
+            "ganancias"
+        ]
+    }
+    {
+        "type": "object",
+        "properties": {
+            "uID": {
+                "type": "string"
+            },
+            "nombre": {
+                "type": "string"
+            },
+            "apellido": {
+                "type": "string"
+            },
+            "direccion": {
+                "type": "string"
+            },
+            "telefono": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "uID",
+            "nombre",
+            "apellido",
+            "direccion",
+            "telefono"
+        ]
+    }
