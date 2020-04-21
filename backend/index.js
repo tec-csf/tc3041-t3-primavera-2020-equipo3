@@ -12,7 +12,7 @@ const url = "mongodb+srv://equipo3:admin@cluster-1xa1r.gcp.mongodb.net/test?retr
 
 // Automatically sets view engine and adds dot notation to app.render
 app.use(engine);
-app.set('views', `../frontend/views`);
+app.set('views', `../frontend`);
 
 //Body parser
 app.use(bodyParser.json());
