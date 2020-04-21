@@ -1,0 +1,59 @@
+@layout('operations.borrar')
+@section('contentDEL')
+
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/borrarPedido/delete" method="POST">
+                
+                <div class="form-group">
+                    <label>MongoDB ID</label>
+                    <input type="text" class="form-control" placeholder="El ID de MongoDB es" name="_id" value="{{pedido._id}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Pedido ID</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID" name="pID" value="{{pedido.pID}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Hora</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="Hora" value="{{pedido.Hora}}" required>
+                </div>
+
+                <div class="form-group">
+                <label for="">Monto</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el apellido" name="Monto" value="{{pedido.Monto}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Producto</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la direccion" name="producto" value="{{pedido.producto}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID Repartidor</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="rID" value="{{pedido.rID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID Tienda</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="tID" value="{{pedido.tID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID Usuario</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="uID" value="{{pedido.uID}}" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary">Borrar pedido</button>
+                    <a href="/usuario/1">Regresar a usuarios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

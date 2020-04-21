@@ -1,0 +1,49 @@
+@layout('operations.borrar')
+@section('contentDEL')
+
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/borrarRepartidor/delete" method="POST">
+                
+                <div class="form-group">
+                    <label>MongoDB ID</label>
+                    <input type="text" class="form-control" placeholder="El ID de MongoDB es" name="_id" value="{{repartidor._id}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">ID Repartidor</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID" name="rID" value="{{repartidor.rID}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="nombre" value="{{repartidor.nombre}}" required>
+                </div>
+
+                <div class="form-group">
+                <label for="">Apellido</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el apellido" name="apellido" value="{{repartidor.apellido}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Telefono</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la direccion" name="telefono" value="{{repartidor.telefono}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Placa</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="placa" value="{{repartidor.placa}}" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary">Borrar repartidor</button>
+                    <a href="/usuario/1">Regresar a usuarios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection

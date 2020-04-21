@@ -1,0 +1,64 @@
+@layout('operations.editar')
+@section('contentEDIT')
+
+
+<div class="container">
+    <div class="row mt-2">
+        <div class="col-6 offset-3">
+            <form action="/editarTienda/save" method="POST">
+                
+                <div class="form-group">
+                    <label>MongoDB ID</label>
+                    <input type="text" class="form-control" placeholder="El ID de MongoDB es" name="_id" value="{{tienda._id}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Tienda ID</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el ID" name="tID" value="{{tienda.tID}}" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Dirección</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el nombre" name="direccion" value="{{tienda.direccion}}" required>
+                </div>
+
+                <div class="form-group">
+                <label for="">Latitud</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el apellido" name="lat" value="{{tienda.lat}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Longitud</label>
+                    <input type="text" class="form-control" placeholder="Ingresa la direccion" name="long" value="{{tienda.long}}"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Nombre de la tienda</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="nombre" value="{{tienda.nombre}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Gerente</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="gerente" value="{{tienda.gerente}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Categoria</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="categoria" value="{{tienda.categoria}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Ganancias</label>
+                    <input type="text" class="form-control" placeholder="Ingresa el teléfono" name="ganancias" value="{{tienda.ganancias}}" required>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary">Realizar cambios</button>
+                    <a href="/usuario/1">Regresar a usuarios</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection
