@@ -57,11 +57,8 @@ Al construir el model de nuestra base de datos en MongoDB, planeamos que se llam
 * tienda
 * usuario
 
-El JSON Schema de estos se ve de la siguiente manera:
-
-
-
-También, puede ser encontrado en formato JSON [aquí](./scripts/DBSchema.json).
+Cada una de estas cuenta con atributos especificos (como el ID de cada una de estas secciones). Es importante recalcar, la única colección que comparte datos, es la del pedido, debido a que se tiene que crear uno usando el ID de la tienda, el usuario y del repartidor.
+Este puede ser encontrado [aquí](./scripts/DBSchema.json).
 
 ### 2.2 Arquitectura de la solución
 
