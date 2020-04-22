@@ -32,7 +32,7 @@ app.get('/home', async (req, res) => {
 // Fin HOME 
 
 //  Datos del pedido
-app.get('/pedido/:page', async (req, res) => {
+app.get('/pedido', async (req, res) => {
     var pedidoDat = 20; //cantidad de datos que va a desplegar
     var page = req.params.page; //pagina reciente
 
@@ -196,7 +196,7 @@ app.post('/borrarPedido/delete', async(req, res) =>{
 //  fin datos del pedido
 
 //  Datos del usuario
-app.get('/usuario/:page', async (req, res) => {
+app.get('/usuario', async (req, res) => {
 
     var usuarioDat = 20;                 //cantidad de usuarios que va a desplegar
     var page = req.params.page;         //pagina reciente
@@ -352,7 +352,7 @@ app.post("/addUsusario/save", (req, res) => {
 
 
 //  Datos del repartidor
-app.get('/repartidor/:page', (req, res) => {
+app.get('/repartidor', (req, res) => {
     var pedidoDat = 20; //cantidad de datos que va a desplegar
     var page = req.params.page; //pagina reciente
 
@@ -510,7 +510,7 @@ app.post("/addRepartidor/save", (req, res) => {
 //  fin datos del repartidor
 
 //  Datos de la tienda
-app.get('/tienda/:page', async (req, res) => {
+app.get('/tienda', async (req, res) => {
     var tiendaDat = 20; //cantidad de usuarios que va a desplegar
     var page = req.params.page; //pagina reciente
 
