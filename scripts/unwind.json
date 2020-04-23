@@ -1,0 +1,9 @@
+[
+    {
+        $unwind: {
+            path: '$direccion',
+            includeArrayIndex: 'Direccion',
+            preserveNullAndEmptyArrays: true
+        }
+    }
+]

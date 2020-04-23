@@ -1,0 +1,11 @@
+[{
+    $facet: {
+        "ProductosMasVendidos": [{
+                "$unwind": "$producto"
+            },
+            {
+                "$sortByCount": "$producto"
+            }
+        ]
+    }
+}]
